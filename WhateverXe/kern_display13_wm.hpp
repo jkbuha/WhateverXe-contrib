@@ -288,10 +288,10 @@ inline TriggerSurfaces triggerSurfaces(const TriggerPacket *packets,uint32_t cou
 // every consumer still fits its bandwidth. A clock request alone is no proof.
 inline bool clockFits(const Snapshot &s,uint64_t nativeHz) {
     return s.primary && s.primary->status==Status::Complete && nativeHz &&
-        s.primary->pixelHz && s.primary->pixelHz<=nativeHz/2 && s.pipePixelHz &&
-        s.pipePixelHz<=nativeHz/2 && s.pipeLineTime==pipeLineTime(s.primary->htotal,s.pipePixelHz) &&
+        s.primary->pixelHz && s.primary->pixelHz<=nativeHz && s.pipePixelHz &&
+        s.pipePixelHz<=nativeHz && s.pipeLineTime==pipeLineTime(s.primary->htotal,s.pipePixelHz) &&
         (!s.cursorActive || (s.cursor && s.cursor->status==Status::Complete &&
-            s.cursor->pixelHz && s.cursor->pixelHz<=nativeHz/2));
+            s.cursor->pixelHz && s.cursor->pixelHz<=nativeHz));
 }
 enum class LatchCheck : uint32_t {None,Controls,OtherPlane,DSB,Clock,Registers,Live,Frame,AwaitingScanout,AwaitingFlip};
 struct Latch {
